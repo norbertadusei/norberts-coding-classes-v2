@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#070b14">
+<meta name="description" content="Norbert's Coding Classes — practical coding lessons in Ghana. Learn HTML, CSS and JavaScript and build real projects.">
+<title>Norbert's Coding Classes</title>
+
+<style>
+:root{
+  --bg:#070b14;
+  --panel:#0e1420;
+  --panel2:#111a28;
+  --text:#f7f9fc;
+  --muted:#aeb8c8;
+  --orange:#ff7a18;
+  --orange2:#ff9d45;
+  --cyan:#36d7ff;
+  --line:rgba(255,255,255,.10);
+  --shadow:0 24px 70px rgba(0,0,0,.35);
+  --radius:24px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:
+    radial-gradient(circle at 15% 10%,rgba(255,122,24,.12),transparent 28%),
+    radial-gradient(circle at 90% 30%,rgba(54,215,255,.08),transparent 25%),
+    var(--bg);
+  color:var(--text);
+  line-height:1.6;
+}
+a{text-decoration:none;color:inherit}
+button,input,select,textarea{font:inherit}
+.container{width:min(1120px,92%);margin:auto}
+header{
+  position:sticky;top:0;z-index:100;
+  background:rgba(7,11,20,.82);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--line);
+}
+.nav{
+  min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:20px;
+}
+.logo{display:flex;align-items:center;gap:12px;font-weight:900;font-size:1.05rem}
+.logo-mark{
+  width:42px;height:42px;border-radius:13px;display:grid;place-items:center;
+  background:linear-gradient(135deg,var(--orange),#ff4d00);
+  color:white;font-weight:1000;font-size:1.2rem;box-shadow:0 10px 30px rgba(255,122,24,.25)
+}
+.nav-links{display:flex;align-items:center;gap:7px}
+.nav-links a{padding:10px 13px;color:#dbe2ee;font-size:.94rem;border-radius:12px}
+.nav-links a:hover{background:rgba(255,255,255,.07);color:white}
+.nav-cta{background:var(--orange)!important;color:#111!important;font-weight:800!important}
+.menu-btn{
+  display:none;border:1px solid var(--line);background:rgba(255,255,255,.05);
+  color:white;border-radius:12px;padding:9px 12px;cursor:pointer
+}
+.hero{padding:85px 0 70px;position:relative;overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:48px;align-items:center}
+.badge{
+  display:inline-flex;align-items:center;gap:9px;border:1px solid rgba(255,122,24,.35);
+  background:rgba(255,122,24,.08);color:#ffb06d;padding:9px 14px;border-radius:999px;
+  font-weight:800;font-size:.78rem;letter-spacing:.05em
+}
+.dot{width:9px;height:9px;background:#39ed79;border-radius:50%;box-shadow:0 0 14px #39ed79}
+h1{font-size:clamp(3rem,7vw,5.9rem);line-height:.98;letter-spacing:-.055em;margin:22px 0}
+.gradient{color:var(--orange)}
+.hero p{font-size:1.12rem;color:var(--muted);max-width:650px}
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:14px 20px;border-radius:14px;border:1px solid var(--line);
+  cursor:pointer;font-weight:850;transition:.2s
+}
+.btn:hover{transform:translateY(-2px)}
+.btn-primary{background:var(--orange);color:#111;border-color:var(--orange)}
+.btn-secondary{background:rgba(255,255,255,.04)}
+.code-card{
+  border:1px solid var(--line);border-radius:26px;background:linear-gradient(145deg,#111a28,#090d15);
+  box-shadow:var(--shadow);overflow:hidden;transform:rotate(1deg)
+}
+.code-top{display:flex;align-items:center;gap:7px;padding:15px 17px;border-bottom:1px solid var(--line)}
+.circle{width:10px;height:10px;border-radius:50%;background:#697386}
+.code-title{margin-left:7px;color:#778398;font-size:.8rem}
+pre{padding:25px;overflow:auto;color:#dbe7f7;font-size:.9rem;line-height:1.8}
+.kw{color:#ff9d45}.fn{color:#61ddff}.str{color:#8df7a7}.tag{color:#ff7a18}
+.stats{padding:18px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.stat{text-align:center;padding:13px}.stat strong{display:block;font-size:1.15rem}.stat span{color:var(--muted);font-size:.83rem}
+section{padding:88px 0}
+.section-head{max-width:720px;margin-bottom:36px}
+.eyebrow{color:var(--orange2);font-weight:900;text-transform:uppercase;font-size:.78rem;letter-spacing:.12em}
+h2{font-size:clamp(2rem,4vw,3.4rem);line-height:1.05;letter-spacing:-.035em;margin:10px 0 13px}
+.section-head p{color:var(--muted)}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card{
+  background:linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.025));
+  border:1px solid var(--line);border-radius:var(--radius);padding:26px;
+  transition:.2s
+}
+.card:hover{transform:translateY(-5px);border-color:rgba(255,122,24,.35)}
+.icon{
+  width:52px;height:52px;border-radius:15px;display:grid;place-items:center;
+  background:rgba(255,122,24,.12);color:var(--orange2);font-weight:1000;font-size:1.1rem;margin-bottom:20px
+}
+.card h3{font-size:1.35rem;margin-bottom:9px}.card p{color:var(--muted);font-size:.95rem}
+.card ul{list-style:none;margin:18px 0}.card li{color:#dce4ef;margin:8px 0;font-size:.9rem}
+.card li::before{content:"✓";color:#53e28b;font-weight:900;margin-right:9px}
+.link{color:var(--orange2);font-weight:800;display:inline-block;margin-top:4px}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:stretch}
+.panel{
+  background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:30px
+}
+.checks{display:grid;gap:13px;margin-top:22px}
+.check{display:flex;gap:12px;align-items:flex-start}.check b{display:block}.check span{color:var(--muted);font-size:.9rem}
+.checkmark{color:#4ce08a;font-weight:1000}
+.timeline{display:grid;gap:14px}
+.step{display:grid;grid-template-columns:55px 1fr;gap:16px;align-items:start}
+.step-num{
+  width:48px;height:48px;border-radius:15px;background:rgba(255,122,24,.12);
+  border:1px solid rgba(255,122,24,.25);display:grid;place-items:center;color:var(--orange2);font-weight:900
+}
+.step p{color:var(--muted);font-size:.92rem}
+.faq{max-width:820px;display:grid;gap:10px}
+.faq-item{border:1px solid var(--line);border-radius:17px;background:rgba(255,255,255,.035);overflow:hidden}
+.faq-q{
+  width:100%;background:none;border:0;color:white;padding:19px 20px;text-align:left;
+  display:flex;justify-content:space-between;gap:15px;cursor:pointer;font-weight:800
+}
+.faq-a{display:none;padding:0 20px 19px;color:var(--muted)}
+.faq-item.open .faq-a{display:block}.plus{color:var(--orange2);font-size:1.3rem}
+.register{
+  background:linear-gradient(145deg,rgba(255,122,24,.12),rgba(54,215,255,.05));
+  border:1px solid rgba(255,255,255,.12);border-radius:30px;padding:34px
+}
+.form{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:22px}
+.field{display:grid;gap:7px}.field.full{grid-column:1/-1}
+label{font-size:.82rem;font-weight:800;color:#dce4ef}
+input,select,textarea{
+  width:100%;background:#090f19;color:white;border:1px solid var(--line);
+  border-radius:13px;padding:13px 14px;outline:none
+}
+input:focus,select:focus,textarea:focus{border-color:rgba(255,122,24,.65)}
+textarea{min-height:110px;resize:vertical}
+footer{border-top:1px solid var(--line);padding:35px 0;color:var(--muted)}
+.footer-grid{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.small-links{display:flex;gap:16px}.small-links a:hover{color:white}
+.notice{margin-top:14px;color:#8f9bad;font-size:.78rem}
+.toast{
+  position:fixed;left:50%;bottom:24px;transform:translate(-50%,120px);
+  background:#111a28;border:1px solid var(--line);padding:13px 17px;border-radius:14px;
+  box-shadow:var(--shadow);transition:.3s;z-index:200;color:white
+}
+.toast.show{transform:translate(-50%,0)}
+
+@media(max-width:800px){
+  .nav-links{
+    display:none;position:absolute;left:4%;right:4%;top:68px;padding:10px;
+    background:#0c121d;border:1px solid var(--line);border-radius:18px;
+    flex-direction:column;align-items:stretch;box-shadow:var(--shadow)
+  }
+  .nav-links.show{display:flex}.nav-links a{padding:13px 14px}
+  .menu-btn{display:block}
+  .hero{padding-top:55px}.hero-grid{grid-template-columns:1fr;gap:35px}
+  .code-card{transform:none}.cards,.about-grid{grid-template-columns:1fr}
+  .stats-grid{grid-template-columns:repeat(2,1fr)}
+  section{padding:65px 0}.form{grid-template-columns:1fr}.field.full{grid-column:auto}
+  h1{font-size:clamp(2.8rem,14vw,4.5rem)}
+}
+</style>
+</head>
+
+<body>
+<header>
+  <div class="container nav">
+    <a href="#home" class="logo">
+      <span class="logo-mark">&lt;/&gt;</span>
+      <span>Norbert's Coding Classes</span>
+    </a>
+
+    <nav class="nav-links" id="navLinks">
+      <a href="#home">Home</a>
+      <a href="#courses">Courses</a>
+      <a href="#roadmap">Roadmap</a>
+      <a href="#faq">FAQ</a>
+      <a href="#register" class="nav-cta">Register</a>
+    </nav>
+
+    <button class="menu-btn" id="menuBtn" aria-label="Open menu">☰</button>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="home">
+  <div class="container hero-grid">
+    <div>
+      <span class="badge"><span class="dot"></span> CODING EDUCATION • GHANA</span>
+      <h1>Learn to code.<br><span class="gradient">Build something real.</span></h1>
+      <p>
+        Practical coding lessons designed to take beginners from the basics
+        to building their own websites and projects with confidence.
+      </p>
+      <div class="actions">
+        <a class="btn btn-primary" href="#register">Start Learning →</a>
+        <a class="btn btn-secondary" href="#courses">Explore Courses</a>
+      </div>
+    </div>
+
+    <div class="code-card" aria-label="Code preview">
+      <div class="code-top">
+        <span class="circle"></span><span class="circle"></span><span class="circle"></span>
+        <span class="code-title">student-project.html</span>
+      </div>
+      <pre><code><span class="tag">&lt;!DOCTYPE html&gt;</span>
+<span class="tag">&lt;html&gt;</span>
+  <span class="tag">&lt;body&gt;</span>
+
+    <span class="tag">&lt;h1&gt;</span>
+      <span class="str">Hello, world!</span>
+    <span class="tag">&lt;/h1&gt;</span>
+
+    <span class="kw">const</span> goal =
+      <span class="fn">"Build something real"</span>;
+
+  <span class="tag">&lt;/body&gt;</span>
+<span class="tag">&lt;/html&gt;</span></code></pre>
+    </div>
+  </div>
+</section>
+
+<div class="stats">
+  <div class="container stats-grid">
+    <div class="stat"><strong>01</strong><span>Beginner friendly</span></div>
+    <div class="stat"><strong>03</strong><span>Core technologies</span></div>
+    <div class="stat"><strong>100%</strong><span>Project focused</span></div>
+    <div class="stat"><strong>📱</strong><span>Mobile friendly</span></div>
+  </div>
+</div>
+
+<section id="courses">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">What you'll learn</span>
+      <h2>Start with the fundamentals. Finish with real projects.</h2>
+      <p>Our core path is simple: understand the web, style it, then make it interactive.</p>
+    </div>
+
+    <div class="cards">
+      <article class="card">
+        <div class="icon">01</div>
+        <h3>HTML</h3>
+        <p>Learn how websites are structured from the ground up.</p>
+        <ul>
+          <li>HTML structure &amp; elements</li>
+          <li>Links, images &amp; forms</li>
+          <li>Semantic HTML</li>
+          <li>Build your first webpage</li>
+        </ul>
+        <a class="link" href="#register">Join this course →</a>
+      </article>
+
+      <article class="card">
+        <div class="icon">02</div>
+        <h3>CSS</h3>
+        <p>Turn plain pages into clean, attractive, responsive designs.</p>
+        <ul>
+          <li>Colors, fonts &amp; spacing</li>
+          <li>Flexbox &amp; layouts</li>
+          <li>Responsive design</li>
+          <li>Build a polished website</li>
+        </ul>
+        <a class="link" href="#register">Join this course →</a>
+      </article>
+
+      <article class="card">
+        <div class="icon">03</div>
+        <h3>JavaScript</h3>
+        <p>Make websites respond to users and behave like real applications.</p>
+        <ul>
+          <li>Variables &amp; functions</li>
+          <li>Conditions &amp; loops</li>
+          <li>Events &amp; DOM</li>
+          <li>Interactive mini-projects</li>
+        </ul>
+        <a class="link" href="#register">Join this course →</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="container about-grid">
+    <div class="panel">
+      <span class="eyebrow">Why learn here?</span>
+      <h2>Less theory. More doing.</h2>
+      <p style="color:var(--muted)">
+        The goal isn't just to memorize code. You'll understand what you're writing,
+        practise it, and gradually turn ideas into working projects.
+      </p>
+
+      <div class="checks">
+        <div class="check"><span class="checkmark">✓</span><div><b>Beginner focused</b><span>No previous coding experience required.</span></div></div>
+        <div class="check"><span class="checkmark">✓</span><div><b>Hands-on practice</b><span>Learn by actually writing and testing code.</span></div></div>
+        <div class="check"><span class="checkmark">✓</span><div><b>Build a portfolio</b><span>Create projects you can keep improving.</span></div></div>
+        <div class="check"><span class="checkmark">✓</span><div><b>Support when stuck</b><span>Ask questions and get guidance as you learn.</span></div></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <span class="eyebrow">Your outcome</span>
+      <h2>From “I don't know coding” to “I built this.”</h2>
+      <p style="color:var(--muted)">
+        By progressing through the learning path, you'll have the foundation to create
+        and understand your own websites.
+      </p>
+      <div class="actions">
+        <a class="btn btn-primary" href="#roadmap">See the roadmap</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="roadmap">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Learning roadmap</span>
+      <h2>A clear path from beginner to builder.</h2>
+      <p>Each stage gives you a practical milestone before moving forward.</p>
+    </div>
+
+    <div class="timeline">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div><h3>Web &amp; coding basics</h3><p>Understand how websites work, how files are organized, and how to use your coding environment.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div><h3>HTML foundations</h3><p>Create your first complete webpage using headings, paragraphs, images, links and forms.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div><h3>CSS &amp; design</h3><p>Learn layouts, colors, typography, spacing and responsive design to make your site look professional.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <div><h3>JavaScript &amp; interaction</h3><p>Add buttons, menus, forms, dynamic content and other interactive behaviour.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-num">05</div>
+        <div><h3>Final project</h3><p>Combine what you've learned to build and publish a complete personal or business website.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">FAQ</span>
+      <h2>Questions? Start here.</h2>
+    </div>
+
+    <div class="faq">
+      <div class="faq-item">
+        <button class="faq-q">Do I need coding experience? <span class="plus">+</span></button>
+        <div class="faq-a">No. The learning path starts from the basics and gradually increases in difficulty.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">What will I need for the classes? <span class="plus">+</span></button>
+        <div class="faq-a">You'll need a device you can code on, such as a laptop or compatible Android setup, plus an internet connection when needed.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">When will I be able to build a website? <span class="plus">+</span></button>
+        <div class="faq-a">You can start building simple webpages during HTML, then create much more polished and responsive websites after CSS. JavaScript adds interactivity.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">How do I register? <span class="plus">+</span></button>
+        <div class="faq-a">Fill out the registration form below. When you submit it, WhatsApp will open with your details ready to send.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="register">
+  <div class="container">
+    <div class="register">
+      <span class="eyebrow">Registration</span>
+      <h2>Ready to start coding?</h2>
+      <p style="color:var(--muted)">Send your details and we'll continue the registration process on WhatsApp.</p>
+
+      <form class="form" id="registrationForm">
+        <div class="field">
+          <label for="name">Full name</label>
+          <input id="name" name="name" type="text" placeholder="Your name" required>
+        </div>
+
+        <div class="field">
+          <label for="phone">Phone number</label>
+          <input id="phone" name="phone" type="tel" placeholder="e.g. 024..." required>
+        </div>
+
+        <div class="field">
+          <label for="course">Course</label>
+          <select id="course" name="course" required>
+            <option value="">Choose a course</option>
+            <option>HTML</option>
+            <option>CSS</option>
+            <option>JavaScript</option>
+            <option>Full Web Development Path</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="level">Experience</label>
+          <select id="level" name="level" required>
+            <option value="">Choose your level</option>
+            <option>Complete beginner</option>
+            <option>Some experience</option>
+            <option>Intermediate</option>
+          </select>
+        </div>
+
+        <div class="field full">
+          <label for="message">Anything you'd like us to know?</label>
+          <textarea id="message" name="message" placeholder="Optional message"></textarea>
+        </div>
+
+        <div class="field full">
+          <button class="btn btn-primary" type="submit">Register via WhatsApp →</button>
+        </div>
+      </form>
+
+      <p class="notice">Submitting this form opens WhatsApp. It does not store your information on this website.</p>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="container footer-grid">
+    <div>
+      <b style="color:white">Norbert's Coding Classes</b>
+      <p>Learn. Build. Create.</p>
+    </div>
+    <div class="small-links">
+      <a href="#home">Home</a>
+      <a href="#courses">Courses</a>
+      <a href="#register">Register</a>
+    </div>
+  </div>
+</footer>
+
+<div class="toast" id="toast">Opening WhatsApp…</div>
+
+<script>
+const menuBtn = document.getElementById("menuBtn");
+const navLinks = document.getElementById("navLinks");
+
+menuBtn.addEventListener("click", () => {
+  navLinks.classList.toggle("show");
+  menuBtn.textContent = navLinks.classList.contains("show") ? "✕" : "☰";
+});
+
+document.querySelectorAll(".nav-links a").forEach(link => {
+  link.addEventListener("click", () => {
+    navLinks.classList.remove("show");
+    menuBtn.textContent = "☰";
+  });
+});
+
+document.querySelectorAll(".faq-q").forEach(button => {
+  button.addEventListener("click", () => {
+    const item = button.parentElement;
+    const wasOpen = item.classList.contains("open");
+
+    document.querySelectorAll(".faq-item").forEach(i => {
+      i.classList.remove("open");
+      i.querySelector(".plus").textContent = "+";
+    });
+
+    if (!wasOpen) {
+      item.classList.add("open");
+      button.querySelector(".plus").textContent = "−";
+    }
+  });
+});
+
+const form = document.getElementById("registrationForm");
+const toast = document.getElementById("toast");
+
+form.addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  const name = document.getElementById("name").value.trim();
+  const phone = document.getElementById("phone").value.trim();
+  const course = document.getElementById("course").value;
+  const level = document.getElementById("level").value;
+  const message = document.getElementById("message").value.trim();
+
+  const whatsappMessage =
+`Hello Norbert's Coding Classes! 👋
+
+I'd like to register for the coding classes.
+
+Name: ${name}
+Phone: ${phone}
+Course: ${course}
+Experience: ${level}
+${message ? "Message: " + message : ""}`;
+
+  toast.classList.add("show");
+
+  const url = "https://wa.me/233598014434?text=" + encodeURIComponent(whatsappMessage);
+
+  setTimeout(() => {
+    window.location.href = url;
+  }, 500);
+
+  setTimeout(() => toast.classList.remove("show"), 2500);
+});
+</script>
+</body>
+</html>
