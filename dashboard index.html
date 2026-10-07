@@ -1,0 +1,1379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Elsie's Crochet — Admin</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial, sans-serif;
+    background:#f8f4f6;
+    color:#211a20;
+}
+
+/* =========================
+   TOP / SIDE NAV
+========================= */
+
+.sidebar{
+    position:fixed;
+    left:0;
+    top:0;
+    bottom:0;
+    width:250px;
+
+    background:#211a20;
+    color:white;
+
+    padding:25px 15px;
+
+    z-index:1000;
+}
+
+.brand{
+    padding:5px 12px 25px;
+}
+
+.brand h1{
+    font-family:Georgia,serif;
+    font-size:25px;
+}
+
+.brand p{
+    font-size:10px;
+    letter-spacing:2px;
+    color:#b9adb4;
+    margin-top:5px;
+}
+
+.nav{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+}
+
+.nav button{
+    border:none;
+    background:transparent;
+
+    color:#c8bdc3;
+
+    padding:14px;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    font-size:14px;
+    font-weight:bold;
+
+    text-align:left;
+}
+
+.nav button:hover{
+    background:#342a31;
+    color:white;
+}
+
+.nav button.active{
+    background:#b76b8a;
+    color:white;
+}
+
+
+/* =========================
+   MAIN
+========================= */
+
+.main{
+    margin-left:250px;
+    min-height:100vh;
+
+    padding:35px;
+}
+
+.container{
+    width:100%;
+    max-width:1500px;
+    margin:auto;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    margin-bottom:25px;
+}
+
+.header h2{
+    font-family:Georgia,serif;
+    font-size:35px;
+}
+
+.header p{
+    color:#91838b;
+    margin-top:5px;
+}
+
+.status{
+    background:white;
+    border:1px solid #e8dce2;
+    border-radius:30px;
+    padding:10px 15px;
+    font-size:12px;
+}
+
+
+/* =========================
+   PAGES
+========================= */
+
+.page{
+    display:none;
+}
+
+.page.active{
+    display:block;
+}
+
+
+/* =========================
+   WELCOME
+========================= */
+
+.welcome{
+    background:linear-gradient(
+        135deg,
+        #2a2027,
+        #b76b8a
+    );
+
+    color:white;
+
+    padding:40px;
+
+    border-radius:25px;
+
+    margin-bottom:25px;
+}
+
+.welcome h3{
+    font-family:Georgia,serif;
+    font-size:32px;
+    margin-bottom:10px;
+}
+
+.welcome p{
+    line-height:1.7;
+    max-width:650px;
+}
+
+
+/* =========================
+   STATS
+========================= */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:18px;
+
+    margin-bottom:25px;
+}
+
+.stat{
+    background:white;
+    border:1px solid #e8dce2;
+    border-radius:18px;
+
+    padding:23px;
+}
+
+.stat small{
+    color:#91838b;
+}
+
+.stat strong{
+    display:block;
+    font-size:28px;
+    margin-top:8px;
+}
+
+
+/* =========================
+   PANEL
+========================= */
+
+.panel{
+    background:white;
+
+    border:1px solid #e8dce2;
+
+    border-radius:20px;
+
+    padding:25px;
+
+    margin-bottom:25px;
+}
+
+.panel-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    margin-bottom:20px;
+}
+
+.panel-header h3{
+    font-family:Georgia,serif;
+    font-size:23px;
+}
+
+
+/* =========================
+   BUTTONS
+========================= */
+
+.primary{
+    border:none;
+
+    background:#b76b8a;
+
+    color:white;
+
+    padding:12px 18px;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    font-weight:bold;
+}
+
+.primary:hover{
+    background:#9e5876;
+}
+
+
+/* =========================
+   PRODUCTS
+========================= */
+
+.products{
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,minmax(0,1fr));
+
+    gap:18px;
+}
+
+.product{
+    border:1px solid #eadfe4;
+    border-radius:15px;
+
+    overflow:hidden;
+
+    background:white;
+}
+
+.product-img{
+    height:190px;
+
+    background:#f1e8ec;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:55px;
+}
+
+.product-img img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.product-info{
+    padding:15px;
+}
+
+.product-info h4{
+    margin-bottom:5px;
+}
+
+.category{
+    font-size:12px;
+    color:#998b92;
+}
+
+.price{
+    color:#b76b8a;
+    font-weight:bold;
+    font-size:17px;
+
+    margin-top:8px;
+}
+
+.delete{
+    margin-top:12px;
+
+    border:none;
+
+    background:#f8e8ed;
+
+    color:#a84e6d;
+
+    padding:8px 11px;
+
+    border-radius:8px;
+
+    cursor:pointer;
+}
+
+
+/* =========================
+   FORM
+========================= */
+
+.form{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+}
+
+.field{
+    display:flex;
+    flex-direction:column;
+    gap:7px;
+}
+
+.field.full{
+    grid-column:1/-1;
+}
+
+.field label{
+    font-size:13px;
+    font-weight:bold;
+}
+
+.field input,
+.field select,
+.field textarea{
+    width:100%;
+
+    padding:13px;
+
+    border:1px solid #ded2d8;
+
+    border-radius:10px;
+
+    font-family:inherit;
+
+    outline:none;
+}
+
+.field textarea{
+    min-height:120px;
+}
+
+
+/* =========================
+   EMPTY
+========================= */
+
+.empty{
+    text-align:center;
+    padding:60px 20px;
+    color:#93858d;
+}
+
+.empty div{
+    font-size:50px;
+    margin-bottom:10px;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:800px){
+
+    body{
+        overflow-x:hidden;
+    }
+
+    /* TOP NAV */
+
+    .sidebar{
+        position:relative;
+
+        width:100%;
+
+        height:auto;
+
+        padding:15px 10px 8px;
+    }
+
+    .brand{
+        padding:0 5px 13px;
+    }
+
+    .brand h1{
+        font-size:22px;
+    }
+
+    /* BUTTONS AT TOP */
+
+    .nav{
+        flex-direction:row;
+
+        overflow-x:auto;
+
+        gap:7px;
+
+        padding-bottom:4px;
+
+        scrollbar-width:none;
+    }
+
+    .nav::-webkit-scrollbar{
+        display:none;
+    }
+
+    .nav button{
+
+        flex:0 0 auto;
+
+        width:auto;
+
+        padding:10px 13px;
+
+        font-size:11px;
+
+        white-space:nowrap;
+
+        text-align:center;
+    }
+
+
+    /* FULL SCREEN MAIN */
+
+    .main{
+        margin-left:0;
+
+        width:100%;
+
+        padding:18px 10px 40px;
+    }
+
+    .container{
+        max-width:none;
+    }
+
+
+    .header{
+        margin-bottom:18px;
+    }
+
+    .header h2{
+        font-size:27px;
+    }
+
+    .status{
+        display:none;
+    }
+
+
+    /* STATS */
+
+    .stats{
+        grid-template-columns:1fr 1fr;
+        gap:10px;
+    }
+
+    .stat{
+        padding:16px;
+    }
+
+    .stat strong{
+        font-size:23px;
+    }
+
+
+    /* PRODUCTS */
+
+    .products{
+        grid-template-columns:1fr 1fr;
+        gap:10px;
+    }
+
+    .product-img{
+        height:145px;
+    }
+
+    .product-info{
+        padding:11px;
+    }
+
+
+    /* FORM */
+
+    .form{
+        grid-template-columns:1fr;
+    }
+
+    .field.full{
+        grid-column:auto;
+    }
+
+
+    .panel{
+        padding:17px;
+    }
+
+    .welcome{
+        padding:27px 20px;
+    }
+
+    .welcome h3{
+        font-size:26px;
+    }
+
+}
+
+
+@media(max-width:450px){
+
+    .products{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .product-img{
+        height:125px;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- ==================================================
+     NAVIGATION
+================================================== -->
+
+<aside class="sidebar">
+
+    <div class="brand">
+
+        <h1>
+            Elsie's Crochet
+        </h1>
+
+        <p>
+            ADMIN STUDIO
+        </p>
+
+    </div>
+
+
+    <nav class="nav">
+
+        <button
+            class="active"
+            onclick="openPage('dashboard',this)"
+        >
+            🏠 Dashboard
+        </button>
+
+        <button
+            onclick="openPage('products',this)"
+        >
+            🛍️ Products
+        </button>
+
+        <button
+            onclick="openPage('add',this)"
+        >
+            ➕ Add Product
+        </button>
+
+        <button
+            onclick="openPage('orders',this)"
+        >
+            📦 Orders
+        </button>
+
+    </nav>
+
+</aside>
+
+
+
+<!-- ==================================================
+     MAIN
+================================================== -->
+
+<main class="main">
+
+<div class="container">
+
+
+<div class="header">
+
+    <div>
+
+        <h2 id="title">
+            Dashboard
+        </h2>
+
+        <p id="subtitle">
+            Manage Elsie's Crochet store
+        </p>
+
+    </div>
+
+    <div class="status">
+        ● Firebase Online
+    </div>
+
+</div>
+
+
+
+<!-- ==================================================
+     DASHBOARD
+================================================== -->
+
+<section
+    id="dashboard"
+    class="page active"
+>
+
+    <div class="welcome">
+
+        <h3>
+            Welcome back 👋
+        </h3>
+
+        <p>
+            This is your Elsie's Crochet
+            control center. Manage your
+            products and keep everything
+            organized from one place.
+        </p>
+
+    </div>
+
+
+    <div class="stats">
+
+        <div class="stat">
+
+            <small>
+                Total Products
+            </small>
+
+            <strong id="total">
+                0
+            </strong>
+
+        </div>
+
+
+        <div class="stat">
+
+            <small>
+                Available
+            </small>
+
+            <strong id="available">
+                0
+            </strong>
+
+        </div>
+
+
+        <div class="stat">
+
+            <small>
+                Orders
+            </small>
+
+            <strong>
+                0
+            </strong>
+
+        </div>
+
+
+        <div class="stat">
+
+            <small>
+                Revenue
+            </small>
+
+            <strong>
+                GH₵0
+            </strong>
+
+        </div>
+
+    </div>
+
+
+    <div class="panel">
+
+        <div class="panel-header">
+
+            <h3>
+                Recent Products
+            </h3>
+
+            <button
+                class="primary"
+                onclick="openPage('add')"
+            >
+                + Add Product
+            </button>
+
+        </div>
+
+
+        <div
+            id="dashboardProducts"
+            class="products"
+        ></div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ==================================================
+     PRODUCTS
+================================================== -->
+
+<section
+    id="products"
+    class="page"
+>
+
+    <div class="panel">
+
+        <div class="panel-header">
+
+            <h3>
+                Product Collection
+            </h3>
+
+            <button
+                class="primary"
+                onclick="openPage('add')"
+            >
+                + Add Product
+            </button>
+
+        </div>
+
+
+        <div
+            id="allProducts"
+            class="products"
+        ></div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ==================================================
+     ADD PRODUCT
+================================================== -->
+
+<section
+    id="add"
+    class="page"
+>
+
+    <div class="panel">
+
+        <div class="panel-header">
+
+            <h3>
+                Add New Product
+            </h3>
+
+        </div>
+
+
+        <form id="productForm">
+
+            <div class="form">
+
+
+                <div class="field">
+
+                    <label>
+                        Product Name
+                    </label>
+
+                    <input
+                        id="name"
+                        type="text"
+                        placeholder="Crochet Flower Bag"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Price (GH₵)
+                    </label>
+
+                    <input
+                        id="price"
+                        type="number"
+                        placeholder="150"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Category
+                    </label>
+
+                    <select id="category">
+
+                        <option>
+                            Bags
+                        </option>
+
+                        <option>
+                            Clothing
+                        </option>
+
+                        <option>
+                            Accessories
+                        </option>
+
+                        <option>
+                            Home
+                        </option>
+
+                        <option>
+                            Other
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Image URL
+                    </label>
+
+                    <input
+                        id="image"
+                        type="url"
+                        placeholder="https://..."
+                    >
+
+                </div>
+
+
+                <div class="field full">
+
+                    <label>
+                        Description
+                    </label>
+
+                    <textarea
+                        id="description"
+                        placeholder="Describe your crochet product..."
+                    ></textarea>
+
+                </div>
+
+
+            </div>
+
+
+            <br>
+
+
+            <button
+                class="primary"
+                type="submit"
+                id="save"
+            >
+                Save Product
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+
+
+<!-- ==================================================
+     ORDERS
+================================================== -->
+
+<section
+    id="orders"
+    class="page"
+>
+
+    <div class="panel">
+
+        <div class="empty">
+
+            <div>
+                📦
+            </div>
+
+            <h3>
+                Orders
+            </h3>
+
+            <p>
+                Your customer orders will
+                appear here.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+</div>
+
+</main>
+
+
+
+<!-- ==================================================
+     JAVASCRIPT
+================================================== -->
+
+<script type="module">
+
+/* FIREBASE */
+
+import {
+    initializeApp
+}
+from
+"https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+
+
+import {
+    getFirestore,
+    collection,
+    getDocs,
+    addDoc,
+    deleteDoc,
+    doc
+}
+from
+"https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
+
+
+const firebaseConfig = {
+
+    apiKey:
+    "AIzaSyAqpT5jpkooAsagm5g4Na0W5nPmCMrknn8",
+
+    authDomain:
+    "elsie-s-crochet.firebaseapp.com",
+
+    projectId:
+    "elsie-s-crochet",
+
+    storageBucket:
+    "elsie-s-crochet.firebasestorage.app",
+
+    messagingSenderId:
+    "197915487451",
+
+    appId:
+    "1:197915487451:web:5d97c88d2fa8f55a0670fe"
+
+};
+
+
+const app =
+    initializeApp(firebaseConfig);
+
+
+const db =
+    getFirestore(app);
+
+
+/* =========================================
+   PAGE NAVIGATION
+========================================= */
+
+window.openPage = function(
+    pageName,
+    clickedButton
+){
+
+    document
+        .querySelectorAll(".page")
+        .forEach(page => {
+
+            page.classList.remove("active");
+
+        });
+
+
+    const selected =
+        document.getElementById(pageName);
+
+
+    if(selected){
+
+        selected.classList.add("active");
+
+    }
+
+
+    document
+        .querySelectorAll(".nav button")
+        .forEach(button => {
+
+            button.classList.remove("active");
+
+        });
+
+
+    if(clickedButton){
+
+        clickedButton.classList.add("active");
+
+    }
+
+
+    const titles = {
+
+        dashboard:[
+            "Dashboard",
+            "Manage Elsie's Crochet store"
+        ],
+
+        products:[
+            "Products",
+            "View your crochet collection"
+        ],
+
+        add:[
+            "Add Product",
+            "Add something beautiful"
+        ],
+
+        orders:[
+            "Orders",
+            "Manage customer orders"
+        ]
+
+    };
+
+
+    if(titles[pageName]){
+
+        document.getElementById(
+            "title"
+        ).textContent =
+            titles[pageName][0];
+
+
+        document.getElementById(
+            "subtitle"
+        ).textContent =
+            titles[pageName][1];
+
+    }
+
+
+    window.scrollTo(0,0);
+
+};
+
+
+/* =========================================
+   PRODUCT CARD
+========================================= */
+
+function productCard(product){
+
+    const name =
+        product.name || "Unnamed Product";
+
+
+    const price =
+        Number(product.price || 0)
+        .toFixed(2);
+
+
+    const category =
+        product.category || "Crochet";
+
+
+    const image =
+        product.image || "";
+
+
+    return `
+
+        <div class="product">
+
+            <div class="product-img">
+
+                ${
+                    image
+
+                    ?
+
+                    `
+                    <img
+                        src="${image}"
+                        alt="${name}"
+                    >
+                    `
+
+                    :
+
+                    `🧶`
+                }
+
+            </div>
+
+
+            <div class="product-info">
+
+                <h4>
+                    ${name}
+                </h4>
+
+                <div class="category">
+                    ${category}
+                </div>
+
+                <div class="price">
+                    GH₵${price}
+                </div>
+
+
+                <button
+                    class="delete"
+                    onclick="removeProduct('${product.id}')"
+                >
+                    Delete
+                </button>
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================
+   LOAD PRODUCTS
+========================================= */
+
+async function loadProducts(){
+
+    try{
+
+        const snapshot =
+            await getDocs(
+                collection(
+                    db,
+                    "products"
+                )
+            );
+
+
+        const products = [];
+
+
+        snapshot.forEach(item => {
+
+            products.push({
+
+                id:item.id,
+
+                ...item.data()
+
+            });
+
+        });
+
+
+        document.getElementById(
+            "total"
+        ).textContent =
+            products.length;
+
+
+        document.getElementById(
+            "available"
+        ).textContent =
+            products.filter(
+                p => p.available !== false
+            ).length;
+
+
+        const dashboard =
+            document.getElementById(
+                "dashboardProducts"
+            );
+
+
+        const all =
+            document.getElementById(
+                "allProducts"
+            );
+
+
+        if(products.length === 0){
+
+            const empty = `
+
+                <div
+                    class="empty"
+                    style="grid-column:1/-1"
+                >
+
+                    <div>
+                        🧶
+                    </div>
+
+                    <h3>
+                        No products yet
+                    </h3>
+
+                    <p>
+                        Add your first product.
+                    </p>
+
+                </div>
+
+            `;
+
+
+            dashboard.innerHTML = empty;
+
+            all.innerHTML = empty;
+
+            return;
+
+        }
+
+
+        dashboard.innerHTML =
+            products
+                .slice(0,4)
+                .map(productCard)
+                .join("");
+
+
+        all.innerHTML =
+            products
+                .map(productCard)
+                .join("");
+
+    }
+    catch(error){
+
+        console.error(error);
+
+        document.getElementById(
+            "dashboardProducts"
+        ).innerHTML = `
+
+            <div
+                class="empty"
+                style="grid-column:1/-1"
+            >
+
+                <div>⚠️</div>
+
+                <h3>
+                    Firebase couldn't load
+                </h3>
+
+                <p>
+                    ${error.message}
+                </p>
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+/* =========================================
+   DELETE
+========================================= */
+
+window.removeProduct =
+async function(id){
+
+    if(
+        !confirm(
+            "Delete this product?"
+        )
+    ){
+        return;
+    }
+
+
+    try{
+
+        await deleteDo
